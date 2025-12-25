@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas from Mark</title>
+    <style>
+        /* Importing elegant fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;500&display=swap');
+
+        :root {
+            --gold-color: #ffd700;
+            --card-bg: rgba(255, 255, 255, 0.15);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* A deeper, richer Christmas night gradient */
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            color: white;
+            position: relative;
+        }
+
+        /* --- The Glass Card --- */
+        .card-container {
+            text-align: center;
+            background: var(--card-bg);
+            padding: 50px 40px;
+            border-radius: 24px;
+            /* A more sophisticated, multi-layered shadow for depth */
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 20;
+            max-width: 90%;
+            width: 500px;
+            position: relative;
+            /* Entrance animation */
+            animation: fadeUp 1.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Typography & Text Effects --- */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            margin: 0 0 20px 0;
+            /* The Shimmer Effect */
+            background: linear-gradient(to right, #fff, var(--gold-color), #fff);
+            background-size: 200% auto;
+            
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+            font-weight: normal;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        .message-content {
+            /* Delaying the text entrance slightly after the card */
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .signature {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--gold-color);
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* --- Background Effects Containers --- */
+        #snow-container, #bokeh-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        #bokeh-container { z-index: 1; }
+        #snow-container { z-index: 10; }
+
+        /* --- Snow Flakes --- */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+
+        /* --- Bokeh Orbs (The Spectacle) --- */
+        .bokeh-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.3); /* Gold tint */
+            box-shadow: 0 0 40px 20px rgba(255, 215, 0, 0.1);
+            filter: blur(8px);
+            animation: floatOrb linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-120vh) translateX(20vw); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="bokeh-container"></div>
+    <div id="snow-container"></div>
+
+    <div class="card-container">
+        <h1>Merry Christmas!</h1>
+        <div class="message-content">
+            <p>
+                Wishing you a season filled with warm moments, 
+                cherished memories and the warm company of those you hold dear.
+                May the coming year be full of peace, joy and triumphs.
+            </p>
+            <br>
+            <div class="signature">
+               With love, <br>
+               The Ndirangu's
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. SNOW GENERATOR
+        const snowContainer = document.getElementById('snow-container');
+        function createSnow() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; // Slower fall 5-10s
+            snowflake.style.opacity = Math.random() * 0.6 + 0.2;
+            snowflake.style.fontSize = Math.random() * 15 + 10 + 'px';
+            
+            snowContainer.appendChild(snowflake);
+            setTimeout(() => { snowflake.remove(); }, 10000);
+        }
+
+        // 2. BOKEH ORB GENERATOR (The magical background lights)
+        const bokehContainer = document.getElementById('bokeh-container');
+        function createBokeh() {
+            const orb = document.createElement('div');
+            orb.classList.add('bokeh-orb');
+            
+            // Randomize size
+            const size = Math.random() * 150 + 50 + 'px';
+            orb.style.width = size;
+            orb.style.height = size;
+            
+            // Randomize starting position at bottom
+            orb.style.left = Math.random() * 100 + 'vw';
+            orb.style.bottom = '-20vh';
+            
+            // Randomize animation speed
+            orb.style.animationDuration = Math.random() * 20 + 15 + 's'; // Very slow floating
+            
+            // Varied colors for depth (Gold, subtle red, soft white)
+            const colors = [
+                'rgba(255, 215, 0, 0.2)', // Gold
+                'rgba(255, 100, 100, 0.15)', // Soft Red
+                'rgba(255, 255, 255, 0.1)'  // White
+            ];
+            orb.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            bokehContainer.appendChild(orb);
+            
+            // Clean up DOM longer due to slow animation
+            setTimeout(() => { orb.remove(); }, 35000); 
+        }
+
+        // Start the effects
+        setInterval(createSnow, 300); // Less frequent snow for cleaner look
+        setInterval(createBokeh, 2000); // Add a new orb every 2 seconds
+        // Create a few initial orbs so the screen isn't empty at start
+        for(let i=0; i<5; i++) setTimeout(createBokeh, i * 600);
+
+    </script>
+</body>
+</html>
